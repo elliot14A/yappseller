@@ -30,7 +30,6 @@ class AppRouter extends _i1.RootStackRouter {
         builder: (_) {
           return _i4.SignUp();
         },
-        durationInMilliseconds: 1000,
         opaque: true,
         barrierDismissible: false),
     HomeRoute.name: (routeData) => _i1.CustomPage<dynamic>(
@@ -38,6 +37,7 @@ class AppRouter extends _i1.RootStackRouter {
         builder: (_) {
           return _i5.Home();
         },
+        transitionsBuilder: _i1.TransitionsBuilders.fadeIn,
         opaque: true,
         barrierDismissible: false),
     WelcomeRoute.name: (routeData) => _i1.CustomPage<dynamic>(

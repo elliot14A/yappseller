@@ -6,4 +6,6 @@ abstract class BaseAuthRepository {
   Future<Either<AuthFailure, Unit>> signInWithGoogle();
   void signOut();
   Future<Option<CurrentUser>> getCurrentUser();
+  void registerUser();
+  Future<bool> isRegisteredUser();
 }

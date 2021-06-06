@@ -9,8 +9,8 @@ import 'package:yappadmin/presentation/pages/welcome.dart';
     page: Logo,
     initial: true,
   ),
-  CustomRoute(page: SignUp, durationInMilliseconds: 1000),
-  CustomRoute(page: Home),
+  CustomRoute(page: SignUp, durationInMilliseconds: 500),
+  CustomRoute(page: Home, transitionsBuilder: TransitionsBuilders.fadeIn),
   CustomRoute(
     page: Welcome,
   )

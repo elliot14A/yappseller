@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:yappadmin/application/auth/auth_state_controller.dart';
 import 'package:yappadmin/presentation/constants/color_constants.dart';
-import 'package:yappadmin/presentation/routes/router.gr.dart';
 import 'package:yappadmin/presentation/widgets/logo.dart';
 import 'package:yappadmin/presentation/widgets/shadow.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:auto_route/auto_route.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'dart:math';
 
-class SignUp extends HookWidget {
+class SignUp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -66,8 +66,47 @@ class SignUp extends HookWidget {
                   height: 30,
                 ),
                 GestureDetector(
-                  onTap: () {
-                    context.router.push(WelcomeRoute());
+                  onTap: () async {
+                    await context
+                        .read(authStateProvider.notifier)
+                        .signIn()
+                        .then((value) {
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          backgroundColor: kAccentColor,
+                          padding: EdgeInsets.zero,
+                          content: value.fold(
+                              (l) => Text(
+                                    l.map(
+                                        cancelledByUser: (_) =>
+                                            "cancelled by user",
+                                        networkError: (_) => "network error",
+                                        serverError: (_) => "server error"),
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        fontSize: 20, fontFamily: "Roboto"),
+                                  ), (r) {
+                            context
+                                .read(authStateProvider.notifier)
+                                .registerUser()
+                                .then((value) => value.fold(
+                                    (l) => context.router.replace(l),
+                                    (r) => context.router.replace(r)));
+                            return Row(
+                              children: [
+                                const SizedBox(width: 20),
+                                CircularProgressIndicator.adaptive(),
+                                const SizedBox(
+                                  width: 70,
+                                ),
+                                Text(
+                                  'Sit Tight Logging You In',
+                                  style: TextStyle(
+                                      fontSize: 20, fontFamily: "Roboto"),
+                                )
+                              ],
+                            );
+                          })));
+                    });
                   },
                   child: Container(
                     width: MediaQuery.of(context).size.width / 1.3,

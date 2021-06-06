@@ -1,0 +1,1 @@
+class UserFailureError extends Error {}

@@ -23,6 +23,7 @@ class _WelcomeState extends State<Welcome> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    ScaffoldMessenger.of(context).clearSnackBars();
     return Scaffold(
       body: Column(
         children: [
