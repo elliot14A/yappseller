@@ -60,7 +60,7 @@ class _LogoState extends State<Logo> {
         state.map(
             initial: (_) {},
             authenticated: (_) async {
-              await context.router.replace(HomeRoute());
+              await context.router.replace(MainScreenRoute());
             },
             notAuthenticated: (_) async {
               await context.router.replace(SignUpRoute());

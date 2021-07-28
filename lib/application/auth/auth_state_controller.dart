@@ -1,3 +1,5 @@
+import 'package:auto_route/auto_route.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:yappadmin/application/auth/auth_state.dart';
 import 'package:yappadmin/domain/auth/base_auth_repository.dart';
@@ -27,14 +29,13 @@ class AuthStateController extends StateNotifier<AuthState> {
     return authFailureOrSuccess;
   }
 
-  Future<Either<WelcomeRoute, HomeRoute>> registerUser() async {
+  Future<bool> registerUser() async {
     final userRegistered = await _authRepository.isRegisteredUser();
-    print(userRegistered);
     if (userRegistered) {
-      return right(HomeRoute());
+      return true;
     } else {
       _authRepository.registerUser();
-      return left(WelcomeRoute());
+      return false;
     }
   }
 

@@ -17,7 +17,7 @@ class _WelcomeState extends State<Welcome> with SingleTickerProviderStateMixin {
   void initState() {
     super.initState();
     Future.delayed(Duration(seconds: 2), () {
-      context.router.push(HomeRoute());
+      context.router.push(MainScreenRoute());
     });
   }
 
